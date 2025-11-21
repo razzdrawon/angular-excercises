@@ -1,0 +1,136 @@
+<div class="module-0-container">
+  <header class="header">
+    <h1>Module 0: Conceptual Recap</h1>
+    <p class="subtitle">A conversation about key concepts in modern Angular</p>
+  </header>
+
+  <div class="topics-grid">
+    @for (topic of topics; track topic.title) {
+      <div 
+        class="topic-card" 
+        [class.expanded]="selectedTopic === topic"
+        (click)="selectTopic(topic)">
+        <div class="topic-header">
+          <span class="icon">{{ topic.icon }}</span>
+          <h2>{{ topic.title }}</h2>
+        </div>
+        
+        @if (selectedTopic === topic) {
+          <div class="topic-content">
+            <div class="content-section">
+              <h3>What is it?</h3>
+              <p>{{ topic.content.what }}</p>
+            </div>
+
+            <div class="content-section">
+              <h3>Why does it exist?</h3>
+              <p>{{ topic.content.why }}</p>
+            </div>
+
+            @if (topic.content.advantages) {
+              <div class="content-section">
+                <h3>Advantages</h3>
+                <ul>
+                  @for (advantage of topic.content.advantages; track advantage) {
+                    <li>{{ advantage }}</li>
+                  }
+                </ul>
+              </div>
+            }
+
+            @if (topic.content.vsRxjs) {
+              <div class="content-section">
+                <h3>Signals vs RxJS</h3>
+                <p>{{ topic.content.vsRxjs }}</p>
+              </div>
+            }
+
+            @if (topic.content.migration) {
+              <div class="content-section">
+                <h3>Migration</h3>
+                <p>{{ topic.content.migration }}</p>
+              </div>
+            }
+
+            @if (topic.content.comparison) {
+              <div class="content-section">
+                <h3>Comparison</h3>
+                <p>{{ topic.content.comparison }}</p>
+              </div>
+            }
+
+            @if (topic.content.strategies) {
+              <div class="content-section">
+                <h3>Strategies</h3>
+                <ul>
+                  @for (strategy of topic.content.strategies; track strategy) {
+                    <li>{{ strategy }}</li>
+                  }
+                </ul>
+              </div>
+            }
+
+            @if (topic.content.modern) {
+              <div class="content-section">
+                <h3>Modern Approach</h3>
+                <p>{{ topic.content.modern }}</p>
+              </div>
+            }
+
+            @if (topic.content.patterns) {
+              <div class="content-section">
+                <h3>Patterns</h3>
+                <ul>
+                  @for (pattern of topic.content.patterns; track pattern) {
+                    <li>{{ pattern }}</li>
+                  }
+                </ul>
+              </div>
+            }
+
+            @if (topic.content.features) {
+              <div class="content-section">
+                <h3>Features</h3>
+                <ul>
+                  @for (feature of topic.content.features; track feature) {
+                    <li>{{ feature }}</li>
+                  }
+                </ul>
+              </div>
+            }
+
+            @if (topic.content.tools) {
+              <div class="content-section">
+                <h3>Tools</h3>
+                <p>{{ topic.content.tools }}</p>
+              </div>
+            }
+
+            @if (topic.content.highlights) {
+              <div class="content-section">
+                <h3>Highlights</h3>
+                <ul>
+                  @for (highlight of topic.content.highlights; track highlight) {
+                    <li>{{ highlight }}</li>
+                  }
+                </ul>
+              </div>
+            }
+
+            @if (topic.content.future) {
+              <div class="content-section">
+                <h3>Future</h3>
+                <p>{{ topic.content.future }}</p>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <footer class="footer">
+    <p>Click on any card to expand and see more details. Perfect for reviewing before an interview.</p>
+  </footer>
+</div>
+
