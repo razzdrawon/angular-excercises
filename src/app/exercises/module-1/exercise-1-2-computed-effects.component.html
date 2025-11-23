@@ -1,0 +1,105 @@
+<div class="exercise-container">
+  <header class="header">
+    <h1>Exercise 1-2: Computed Signals & Effects</h1>
+    <p class="subtitle">Learn about derived values and side effects</p>
+  </header>
+
+  <div class="content">
+    <!-- Price Calculator -->
+    <section class="section">
+      <h2>Price Calculator with Computed Signals</h2>
+      <div class="calculator">
+        <div class="input-group">
+          <label>Price:</label>
+          <input 
+            type="number" 
+            [value]="price()"
+            (input)="updatePrice(+$any($event.target).value)"
+            min="0"
+            step="0.01">
+        </div>
+        
+        <div class="input-group">
+          <label>Quantity:</label>
+          <input 
+            type="number" 
+            [value]="quantity()"
+            (input)="updateQuantity(+$any($event.target).value)"
+            min="1"
+            step="1">
+        </div>
+        
+        <div class="input-group">
+          <label>Discount (%):</label>
+          <input 
+            type="number" 
+            [value]="discount()"
+            (input)="updateDiscount(+$any($event.target).value)"
+            min="0"
+            max="100"
+            step="1">
+        </div>
+        
+        <div class="input-group">
+          <label>Tax Rate:</label>
+          <input 
+            type="number" 
+            [value]="taxRate()"
+            (input)="updateTaxRate(+$any($event.target).value)"
+            min="0"
+            max="1"
+            step="0.01">
+        </div>
+      </div>
+      
+      <div class="calculation-breakdown">
+        <div class="calculation-row">
+          <span>Subtotal:</span>
+          <strong>${{ subtotal().toFixed(2) }}</strong>
+        </div>
+        <div class="calculation-row discount">
+          <span>Discount ({{ discount() }}%):</span>
+          <strong>-${{ discountAmount().toFixed(2) }}</strong>
+        </div>
+        <div class="calculation-row">
+          <span>Total Before Tax:</span>
+          <strong>${{ totalBeforeTax().toFixed(2) }}</strong>
+        </div>
+        <div class="calculation-row">
+          <span>Tax ({{ (taxRate() * 100).toFixed(0) }}%):</span>
+          <strong>${{ taxAmount().toFixed(2) }}</strong>
+        </div>
+        <div class="calculation-row total">
+          <span>Final Total:</span>
+          <strong>${{ finalTotal().toFixed(2) }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Effects Info -->
+    <section class="section">
+      <h2>Effects in Action</h2>
+      <div class="info-box">
+        <p>Open your browser console to see effects in action:</p>
+        <ul>
+          <li><strong>logEffect</strong>: Logs every time finalTotal changes</li>
+          <li><strong>warningEffect</strong>: Warns when total exceeds $1000</li>
+        </ul>
+        <p class="note">Try changing the values above and watch the console!</p>
+      </div>
+    </section>
+
+    <!-- Key Concepts -->
+    <section class="section concepts">
+      <h2>Key Concepts</h2>
+      <ul>
+        <li><strong>computed(() => ...)</strong>: Creates a derived signal that automatically recalculates when dependencies change</li>
+        <li><strong>effect(() => ...)</strong>: Runs side effects when signals change (logging, API calls, etc.)</li>
+        <li><strong>Computed signals are lazy</strong>: They only recalculate when accessed and dependencies change</li>
+        <li><strong>Effects run automatically</strong>: They execute whenever their dependencies change</li>
+        <li><strong>Computed signals are memoized</strong>: They cache results until dependencies change</li>
+      </ul>
+    </section>
+  </div>
+</div>
+

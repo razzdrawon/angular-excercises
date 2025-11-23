@@ -1,0 +1,84 @@
+<div class="exercise-container">
+  <header class="header">
+    <h1>Exercise 1-1: Basic Signals</h1>
+    <p class="subtitle">Learn how to create, read, and update signals</p>
+  </header>
+
+  <div class="content">
+    <!-- Basic Counter Signal -->
+    <section class="section">
+      <h2>1. Counter Signal</h2>
+      <div class="demo-box">
+        <p class="value">Count: <strong>{{ count() }}</strong></p>
+        <p class="computed">Double Count (computed): <strong>{{ doubleCount() }}</strong></p>
+        <div class="buttons">
+          <button (click)="increment()">Increment</button>
+          <button (click)="decrement()">Decrement</button>
+          <button (click)="reset()">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Object Signal -->
+    <section class="section">
+      <h2>2. Object Signal</h2>
+      <div class="demo-box">
+        <p class="value">User Info (computed): <strong>{{ userInfo() }}</strong></p>
+        <div class="input-group">
+          <label>Name:</label>
+          <input 
+            type="text" 
+            [value]="user().name"
+            (input)="updateUserName($any($event.target).value)"
+            placeholder="Enter name">
+        </div>
+        <div class="input-group">
+          <label>Age:</label>
+          <input 
+            type="number" 
+            [value]="user().age"
+            (input)="updateUserAge(+$any($event.target).value)"
+            placeholder="Enter age">
+        </div>
+        <p class="info">Current user: {{ user() | json }}</p>
+      </div>
+    </section>
+
+    <!-- Array Signal -->
+    <section class="section">
+      <h2>3. Array Signal</h2>
+      <div class="demo-box">
+        <div class="input-group">
+          <input 
+            type="text" 
+            #itemInput
+            placeholder="Add new item"
+            (keyup.enter)="addItem(itemInput.value); itemInput.value = ''">
+          <button (click)="addItem(itemInput.value); itemInput.value = ''">Add Item</button>
+        </div>
+        <ul class="items-list">
+          @for (item of items(); track $index) {
+            <li>
+              {{ item }}
+              <button (click)="removeItem($index)" class="remove-btn">Remove</button>
+            </li>
+          }
+        </ul>
+        <p class="info">Total items: {{ items().length }}</p>
+      </div>
+    </section>
+
+    <!-- Key Concepts -->
+    <section class="section concepts">
+      <h2>Key Concepts</h2>
+      <ul>
+        <li><strong>signal(value)</strong>: Creates a signal with an initial value</li>
+        <li><strong>signal()</strong>: Reads the current value of a signal</li>
+        <li><strong>signal.set(value)</strong>: Sets a new value</li>
+        <li><strong>signal.update(fn)</strong>: Updates value using a function</li>
+        <li><strong>computed(() => ...)</strong>: Creates a derived signal that automatically updates when dependencies change</li>
+      </ul>
+    </section>
+  </div>
+</div>
+

@@ -1,0 +1,57 @@
+<div class="practice-container">
+  <header class="header">
+    <h1>Practice 1-2: Shopping Cart with Signals</h1>
+    <p class="subtitle">Your turn! Implement a shopping cart using signals and computed values</p>
+    <div class="instructions">
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Create signals for cart items</li>
+        <li>Create computed signals for subtotal, tax, total, and item count</li>
+        <li>Implement methods to add, remove, update quantity, and clear cart</li>
+        <li>Use the reference exercises (exercise-1-2) for computed signals examples</li>
+      </ol>
+    </div>
+  </header>
+
+  <div class="content">
+    <!-- Cart Summary -->
+    <section class="section">
+      <h2>Cart Summary</h2>
+      <div class="summary">
+        <!-- TODO: Display item count -->
+        <!-- TODO: Display subtotal -->
+        <!-- TODO: Display tax -->
+        <!-- TODO: Display total -->
+      </div>
+    </section>
+
+    <!-- Cart Items -->
+    <section class="section">
+      <h2>Cart Items</h2>
+      <div class="cart-items">
+        <!-- TODO: Loop through cart items -->
+        <!-- Display: name, price, quantity input, total (price * quantity), remove button -->
+        <!-- Quantity input should call updateQuantity() -->
+        <!-- Remove button should call removeItem() -->
+      </div>
+      <!-- TODO: Add "Clear Cart" button if cart has items -->
+    </section>
+
+    <!-- Add Items (Sample) -->
+    <section class="section">
+      <h2>Add Items</h2>
+      <div class="add-items">
+        <button (click)="addItem({ id: 1, name: 'Product A', price: 10.99, quantity: 1 })">
+          Add Product A ($10.99)
+        </button>
+        <button (click)="addItem({ id: 2, name: 'Product B', price: 25.50, quantity: 1 })">
+          Add Product B ($25.50)
+        </button>
+        <button (click)="addItem({ id: 3, name: 'Product C', price: 5.00, quantity: 1 })">
+          Add Product C ($5.00)
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
+
