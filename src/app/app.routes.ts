@@ -12,6 +12,7 @@ export const routes: Routes = [
   },
   {
     path: 'module-1',
+    loadComponent: () => import('./modules/module-1/module-1-container.component').then(m => m.Module1ContainerComponent),
     children: [
       {
         path: 'exercise-1-1',

@@ -1,0 +1,51 @@
+<div class="module-1-container">
+  <header class="header">
+    <h1>Module 1: Angular Moderno - Signals y Reactividad</h1>
+    <p class="subtitle">Signals, computed, effects, and RxJS integration</p>
+  </header>
+
+  <div class="content-wrapper">
+    <!-- Navigation Sidebar -->
+    <aside class="sidebar">
+      <nav class="nav-section">
+        <h3>Exercises</h3>
+        <ul class="nav-list">
+          @for (exercise of exercises; track exercise.path) {
+            <li>
+              <a 
+                [routerLink]="exercise.path" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: false}">
+                <span class="nav-title">{{ exercise.title }}</span>
+                <span class="nav-description">{{ exercise.description }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <nav class="nav-section">
+        <h3>Practices</h3>
+        <ul class="nav-list">
+          @for (practice of practices; track practice.path) {
+            <li>
+              <a 
+                [routerLink]="practice.path" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: false}">
+                <span class="nav-title">{{ practice.title }}</span>
+                <span class="nav-description">{{ practice.description }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
+
