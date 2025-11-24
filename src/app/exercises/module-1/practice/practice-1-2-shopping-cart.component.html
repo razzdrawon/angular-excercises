@@ -19,9 +19,13 @@
       <h2>Cart Summary</h2>
       <div class="summary">
         <!-- TODO: Display item count -->
+        <p>Item count: {{ itemCount() }}</p>
         <!-- TODO: Display subtotal -->
+        <p>Subtotal: {{ subtotal() }}</p>
         <!-- TODO: Display tax -->
+        <p>Tax: {{ tax() }}</p>
         <!-- TODO: Display total -->
+        <p>Total: {{ total() }}</p>
       </div>
     </section>
 
@@ -33,8 +37,21 @@
         <!-- Display: name, price, quantity input, total (price * quantity), remove button -->
         <!-- Quantity input should call updateQuantity() -->
         <!-- Remove button should call removeItem() -->
+        @for (item of cartItems(); track item.id) {
+          <div>
+            <p>{{ item.name }}</p>
+            <p>{{ item.price }}</p>
+            <p>{{ item.quantity }}</p>
+            <p>{{ item.price * item.quantity }}</p>
+            <input type="number" [value]="item.quantity" (input)="updateQuantity(item.id, $any($event.target).value)" />
+            <button (click)="removeItem(item.id)">Remove</button>
+          </div>
+        }
       </div>
       <!-- TODO: Add "Clear Cart" button if cart has items -->
+       @if (cartItems().length > 0) {
+        <button (click)="clearCart()">Clear Cart</button>
+       }
     </section>
 
     <!-- Add Items (Sample) -->
