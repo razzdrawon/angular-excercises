@@ -1,0 +1,31 @@
+<div class="module-container">
+  <header class="header">
+    <h1>Module 5: Forms Avanzados y Validación</h1>
+    <p class="subtitle">complex multi-step form</p>
+  </header>
+
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <nav class="nav-section">
+        <h3>Exercises</h3>
+        <ul class="nav-list">
+          @for (exercise of exercises; track exercise.path) {
+            <li>
+              <a 
+                [routerLink]="exercise.path" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: false}">
+                <span class="nav-title">{{ exercise.title }}</span>
+                <span class="nav-description">{{ exercise.description }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
