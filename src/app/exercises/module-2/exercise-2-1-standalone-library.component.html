@@ -1,0 +1,79 @@
+<div class="exercise-container">
+  <h1>Exercise 2-1: Standalone Component Library</h1>
+  <p class="description">
+    Demostración de componentes standalone reutilizables con el nuevo control flow de Angular
+  </p>
+
+  <!-- Selector de componente usando @switch -->
+  <div class="component-selector">
+    <h2>Selecciona un componente:</h2>
+    <div class="buttons">
+      <button 
+        (click)="selectComponent('button')"
+        [class.active]="selectedComponent() === 'button'"
+      >
+        Button Component
+      </button>
+      <button 
+        (click)="selectComponent('card')"
+        [class.active]="selectedComponent() === 'card'"
+      >
+        Card Component
+      </button>
+      <button 
+        (click)="selectComponent('input')"
+        [class.active]="selectedComponent() === 'input'"
+      >
+        Input Component
+      </button>
+    </div>
+  </div>
+
+  <!-- Demostración usando @switch -->
+  <div class="demo-section">
+    @switch (selectedComponent()) {
+      @case ('button') {
+        <div class="demo">
+          <h3>Button Component Demo</h3>
+          <app-button 
+            label="Click Me!" 
+            (clicked)="onButtonClick()"
+          />
+          <p>Button clicked: {{ buttonClicks() }} times</p>
+        </div>
+      }
+      @case ('card') {
+        <div class="demo">
+          <h3>Card Component Demo</h3>
+          <div class="cards-container">
+            @for (card of cards(); track card.id) {
+              <app-card 
+                [title]="card.title" 
+                [content]="card.content"
+                (removed)="removeCard(card.id)"
+              />
+            } @empty {
+              <p>No cards available</p>
+            }
+          </div>
+          <button (click)="addCard()" class="add-button">Add Card</button>
+        </div>
+      }
+      @case ('input') {
+        <div class="demo">
+          <h3>Input Component Demo</h3>
+          <app-input 
+            placeholder="Type something..."
+            (valueChange)="onInputChange($event)"
+          />
+          @if (inputValue()) {
+            <p class="input-value">You typed: <strong>{{ inputValue() }}</strong></p>
+          } @else {
+            <p class="input-value">Start typing...</p>
+          }
+        </div>
+      }
+    }
+  </div>
+</div>
+
