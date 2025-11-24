@@ -18,40 +18,41 @@
     <section class="section">
       <h2>Cart Summary</h2>
       <div class="summary">
-        <!-- TODO: Display item count -->
-        <p>Item count: {{ itemCount() }}</p>
-        <!-- TODO: Display subtotal -->
-        <p>Subtotal: {{ subtotal() }}</p>
-        <!-- TODO: Display tax -->
-        <p>Tax: {{ tax() }}</p>
-        <!-- TODO: Display total -->
-        <p>Total: {{ total() }}</p>
+        <p><strong>Item count:</strong> {{ itemCount() }}</p>
+        <p><strong>Subtotal:</strong> ${{ subtotal() | number:'1.2-2' }}</p>
+        <p><strong>Tax (10%):</strong> ${{ tax() | number:'1.2-2' }}</p>
+        <p class="grand-total"><strong>Total:</strong> ${{ total() | number:'1.2-2' }}</p>
       </div>
     </section>
 
     <!-- Cart Items -->
     <section class="section">
       <h2>Cart Items</h2>
-      <div class="cart-items">
-        <!-- TODO: Loop through cart items -->
-        <!-- Display: name, price, quantity input, total (price * quantity), remove button -->
-        <!-- Quantity input should call updateQuantity() -->
-        <!-- Remove button should call removeItem() -->
-        @for (item of cartItems(); track item.id) {
-          <div>
-            <p>{{ item.name }}</p>
-            <p>{{ item.price }}</p>
-            <p>{{ item.quantity }}</p>
-            <p>{{ item.price * item.quantity }}</p>
-            <input type="number" [value]="item.quantity" (input)="updateQuantity(item.id, $any($event.target).value)" />
-            <button (click)="removeItem(item.id)">Remove</button>
-          </div>
-        }
-      </div>
-      <!-- TODO: Add "Clear Cart" button if cart has items -->
-       @if (cartItems().length > 0) {
-        <button (click)="clearCart()">Clear Cart</button>
-       }
+      @if (cartItems().length === 0) {
+        <p class="empty-cart">Your cart is empty. Add some items to get started!</p>
+      } @else {
+        <div class="cart-items">
+          @for (item of cartItems(); track item.id) {
+            <div class="cart-item">
+              <div class="item-info">
+                <h4>{{ item.name }}</h4>
+                <p class="price">Price: ${{ item.price | number:'1.2-2' }}</p>
+                <div class="quantity-control">
+                  <label>Quantity:</label>
+                  <input 
+                    type="number" 
+                    min="1"
+                    [value]="item.quantity" 
+                    (input)="updateQuantity(item.id, +$any($event.target).value)" />
+                </div>
+                <p class="item-total">Total: ${{ (item.price * item.quantity) | number:'1.2-2' }}</p>
+              </div>
+              <button (click)="removeItem(item.id)" class="remove-btn">Remove</button>
+            </div>
+          }
+        </div>
+        <button (click)="clearCart()" class="clear-btn">Clear Cart</button>
+      }
     </section>
 
     <!-- Add Items (Sample) -->

@@ -70,12 +70,13 @@ export class Practice12ShoppingCartComponent {
   // Update the quantity of the item with the given id
   // If quantity is 0 or less, remove the item
   updateQuantity(id: number, quantity: number) {
-    if (quantity <= 0) {
+    const qty = Number(quantity);
+    if (isNaN(qty) || qty <= 0) {
       this.removeItem(id);
     } else {
       this.cartItems.update(items =>
         items.map(item =>
-          item.id === id ? { ...item, quantity } : item
+          item.id === id ? { ...item, quantity: qty } : item
         )
       );
     }
