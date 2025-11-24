@@ -1,0 +1,115 @@
+<div class="exercise-container">
+  <h1>Exercise 8-1: SSR-Enabled PWA Integration</h1>
+  <p class="description">
+    Demostración de características SSR y PWA: service workers, offline support, y platform detection
+  </p>
+
+  <!-- Status Panel -->
+  <div class="status-panel" [class.offline]="!isOnline()">
+    <h2>Application Status</h2>
+    <div class="status-grid">
+      <div class="status-item">
+        <strong>Platform:</strong>
+        <span [class.browser]="appStatus().platform === 'Browser'">
+          {{ appStatus().platform }}
+        </span>
+      </div>
+      <div class="status-item">
+        <strong>Connection:</strong>
+        <span [class.online]="appStatus().online" [class.offline]="appStatus().offline">
+          {{ appStatus().online ? 'Online' : 'Offline' }}
+        </span>
+      </div>
+      <div class="status-item">
+        <strong>Service Worker:</strong>
+        <span [class.registered]="appStatus().pwaReady">
+          {{ appStatus().pwaReady ? 'Registered' : 'Not Registered' }}
+        </span>
+      </div>
+      <div class="status-item">
+        <strong>Installable:</strong>
+        <span [class.can-install]="appStatus().canInstall">
+          {{ appStatus().canInstall ? 'Yes' : 'No' }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SSR Information -->
+  @if (!isBrowser()) {
+    <div class="ssr-info">
+      <h3>🖥️ Server-Side Rendering</h3>
+      <p>This content is being rendered on the server. Browser-specific features are disabled.</p>
+    </div>
+  }
+
+  <!-- Browser Features -->
+  @if (isBrowser()) {
+    <div class="browser-features">
+      <h3>🌐 Browser Features</h3>
+      
+      <!-- Online/Offline Indicator -->
+      <div class="feature-card">
+        <h4>Network Status</h4>
+        @if (isOnline()) {
+          <div class="online-indicator">
+            <span class="indicator-dot online"></span>
+            <span>You are online</span>
+          </div>
+        } @else {
+          <div class="offline-indicator">
+            <span class="indicator-dot offline"></span>
+            <span>You are offline. Some features may be limited.</span>
+          </div>
+        }
+      </div>
+
+      <!-- Service Worker -->
+      <div class="feature-card">
+        <h4>Service Worker</h4>
+        @if (serviceWorkerRegistered()) {
+          <p class="success">✅ Service Worker is registered and active</p>
+          <p class="info">Your app can work offline and cache resources.</p>
+          <button (click)="clearCache()" class="btn btn-secondary">Clear Cache</button>
+        } @else {
+          <p class="warning">⚠️ Service Worker is not registered</p>
+          <p class="info">Register a service worker to enable offline functionality.</p>
+        }
+      </div>
+
+      <!-- PWA Install -->
+      @if (appStatus().canInstall) {
+        <div class="feature-card">
+          <h4>Install App</h4>
+          <p>This app can be installed on your device.</p>
+          <button (click)="installPWA()" class="btn btn-primary">Install App</button>
+        </div>
+      }
+
+      <!-- PWA Features Info -->
+      <div class="feature-card">
+        <h4>PWA Features</h4>
+        <ul>
+          <li>✅ Offline support via Service Worker</li>
+          <li>✅ App-like experience</li>
+          <li>✅ Installable on devices</li>
+          <li>✅ Responsive design</li>
+          <li>✅ Fast loading with caching</li>
+        </ul>
+      </div>
+    </div>
+  }
+
+  <!-- SSR Benefits -->
+  <div class="ssr-benefits">
+    <h3>SSR Benefits</h3>
+    <ul>
+      <li>✅ Faster initial page load</li>
+      <li>✅ Better SEO</li>
+      <li>✅ Improved social media sharing</li>
+      <li>✅ Works without JavaScript</li>
+      <li>✅ Better performance on slow devices</li>
+    </ul>
+  </div>
+</div>
+

@@ -1,0 +1,103 @@
+<div class="exercise-container">
+  <h1>Exercise 4-1: Permissions and Roles System</h1>
+  <p class="description">
+    Sistema de permisos y roles usando custom directives y arquitectura composable
+  </p>
+
+  <!-- Selector de usuario -->
+  <div class="user-selector">
+    <h2>Current User: {{ currentUser().name }}</h2>
+    <div class="user-buttons">
+      @for (user of users(); track user.id) {
+        <button
+          (click)="switchUser(user.id)"
+          [class.active]="currentUser().id === user.id"
+        >
+          {{ user.name }} ({{ user.role }})
+        </button>
+      }
+    </div>
+    <div class="user-info">
+      <p><strong>Role:</strong> {{ currentRole() }}</p>
+      <p><strong>Permissions:</strong> {{ currentPermissions().join(', ') }}</p>
+    </div>
+  </div>
+
+  <!-- Demostración de directivas -->
+  <div class="demo-section">
+    <h2>Permission-Based Content</h2>
+    
+    <div class="permission-demo">
+      <div class="permission-item" *appPermission="'read'">
+        <h3>📖 Read Permission</h3>
+        <p>This content is visible to users with 'read' permission</p>
+      </div>
+
+      <div class="permission-item" *appPermission="'write'">
+        <h3>✏️ Write Permission</h3>
+        <p>This content is visible to users with 'write' permission</p>
+        <button (click)="addPermission('delete')">Add Delete Permission</button>
+      </div>
+
+      <div class="permission-item" *appPermission="'delete'">
+        <h3>🗑️ Delete Permission</h3>
+        <p>This content is visible to users with 'delete' permission</p>
+        <button (click)="removePermission('delete')">Remove Delete Permission</button>
+      </div>
+
+      <div class="permission-item" *appPermission="'manage'">
+        <h3>⚙️ Manage Permission</h3>
+        <p>This content is visible to users with 'manage' permission (Admin only)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Role-Based Content -->
+  <div class="demo-section">
+    <h2>Role-Based Content</h2>
+    
+    <div class="role-demo">
+      <div class="role-item" *appRole="'admin'">
+        <h3>👑 Admin Panel</h3>
+        <p>This section is only visible to administrators</p>
+        <ul>
+          <li>Manage all users</li>
+          <li>Configure system settings</li>
+          <li>View all logs</li>
+        </ul>
+      </div>
+
+      <div class="role-item" *appRole="'editor'">
+        <h3>✏️ Editor Panel</h3>
+        <p>This section is visible to editors and admins</p>
+        <ul>
+          <li>Create and edit content</li>
+          <li>Manage drafts</li>
+          <li>Publish articles</li>
+        </ul>
+      </div>
+
+      <div class="role-item" *appRole="'viewer'">
+        <h3>👁️ Viewer Panel</h3>
+        <p>This section is visible to all users</p>
+        <ul>
+          <li>View published content</li>
+          <li>Read articles</li>
+          <li>Browse categories</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Combinación de permisos -->
+  <div class="demo-section">
+    <h2>Combined Permissions</h2>
+    <div class="combined-demo">
+      <div *appPermission="'read'; appPermissionAnd: 'write'">
+        <h3>Read + Write Required</h3>
+        <p>This content requires both 'read' and 'write' permissions</p>
+      </div>
+    </div>
+  </div>
+</div>
+

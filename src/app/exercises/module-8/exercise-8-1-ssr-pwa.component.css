@@ -1,0 +1,218 @@
+.exercise-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+}
+
+.status-panel {
+  background: #e8f5e9;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #27ae60;
+}
+
+.status-panel.offline {
+  background: #ffebee;
+  border-left-color: #e74c3c;
+}
+
+.status-panel h2 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.status-item {
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.status-item strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.status-item span {
+  font-weight: bold;
+}
+
+.status-item span.browser {
+  color: #3498db;
+}
+
+.status-item span.online {
+  color: #27ae60;
+}
+
+.status-item span.offline {
+  color: #e74c3c;
+}
+
+.status-item span.registered {
+  color: #27ae60;
+}
+
+.status-item span.can-install {
+  color: #3498db;
+}
+
+.ssr-info {
+  background: #fff3cd;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #ffc107;
+}
+
+.ssr-info h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.browser-features {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.browser-features h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.feature-card {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin: 1.5rem 0;
+  border-left: 3px solid #3498db;
+}
+
+.feature-card h4 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.online-indicator,
+.offline-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.indicator-dot.online {
+  background: #27ae60;
+  box-shadow: 0 0 8px #27ae60;
+}
+
+.indicator-dot.offline {
+  background: #e74c3c;
+  box-shadow: 0 0 8px #e74c3c;
+}
+
+.success {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.warning {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.info {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2980b9;
+}
+
+.btn-secondary {
+  background: #95a5a6;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #7f8c8d;
+}
+
+.feature-card ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  color: #2c3e50;
+}
+
+.feature-card li {
+  margin: 0.5rem 0;
+}
+
+.ssr-benefits {
+  background: #e3f2fd;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #2196f3;
+}
+
+.ssr-benefits h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.ssr-benefits ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  color: #2c3e50;
+}
+
+.ssr-benefits li {
+  margin: 0.5rem 0;
+}
+

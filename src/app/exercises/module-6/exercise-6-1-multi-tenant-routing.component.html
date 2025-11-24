@@ -1,0 +1,65 @@
+<div class="exercise-container">
+  <h1>Exercise 6-1: Multi-Tenant Routing App</h1>
+  <p class="description">
+    Demostración de routing avanzado con guards, resolvers y multi-tenant support
+  </p>
+
+  <!-- Tenant Selector -->
+  <div class="tenant-selector" [attr.data-theme]="currentTenant().theme">
+    <h2>Select Tenant:</h2>
+    <div class="tenant-buttons">
+      @for (tenant of tenants(); track tenant.id) {
+        <button
+          (click)="switchTenant(tenant.id)"
+          [class.active]="currentTenant().id === tenant.id"
+        >
+          {{ tenant.name }}
+        </button>
+      }
+    </div>
+    <p class="current-tenant">
+      Current Tenant: <strong>{{ currentTenant().name }}</strong>
+      (Theme: {{ currentTenant().theme }})
+    </p>
+  </div>
+
+  <!-- Navigation -->
+  <div class="navigation">
+    <h3>Navigation:</h3>
+    <nav>
+      <button (click)="navigateTo('dashboard')">Dashboard</button>
+      <button (click)="navigateTo('users')">Users</button>
+      <button (click)="navigateTo('settings')">Settings</button>
+      <button (click)="navigateTo('reports')">Reports</button>
+    </nav>
+  </div>
+
+  <!-- Route Information -->
+  <div class="route-info">
+    <h3>Route Information:</h3>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>Current Route:</strong>
+        <code>{{ currentRoute() }}</code>
+      </div>
+      <div class="info-item">
+        <strong>Route Params:</strong>
+        <pre>{{ routeParams() | json }}</pre>
+      </div>
+      <div class="info-item">
+        <strong>Route Data:</strong>
+        <pre>{{ routeData() | json }}</pre>
+      </div>
+      <div class="info-item">
+        <strong>Tenant Base URL:</strong>
+        <code>{{ tenantBaseUrl() }}</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Router Outlet -->
+  <div class="router-outlet-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

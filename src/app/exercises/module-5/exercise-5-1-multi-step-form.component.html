@@ -1,0 +1,194 @@
+<div class="exercise-container">
+  <h1>Exercise 5-1: Complex Multi-Step Form</h1>
+  <p class="description">
+    Formulario multi-paso con validación avanzada, custom validators y async validators
+  </p>
+
+  @if (!formSubmitted()) {
+    <!-- Progress indicator -->
+    <div class="progress-bar">
+      @for (step of [1, 2, 3]; track step) {
+        <div 
+          class="step-indicator"
+          [class.active]="currentStep() === step"
+          [class.completed]="currentStep() > step"
+          (click)="goToStep(step)"
+        >
+          <span class="step-number">{{ step }}</span>
+          <span class="step-label">Step {{ step }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="multi-step-form">
+      <!-- Step 1: Personal Information -->
+      @if (currentStep() === 1) {
+        <div class="form-step">
+          <h2>{{ stepInfo().title }}</h2>
+          <p class="step-description">{{ stepInfo().description }}</p>
+
+          <div formGroupName="personalInfo" class="form-group">
+            <div class="form-field">
+              <label>First Name *</label>
+              <input type="text" formControlName="firstName" />
+              @if (getFieldError('personalInfo', 'firstName')) {
+                <span class="error">{{ getFieldError('personalInfo', 'firstName') }}</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label>Last Name *</label>
+              <input type="text" formControlName="lastName" />
+              @if (getFieldError('personalInfo', 'lastName')) {
+                <span class="error">{{ getFieldError('personalInfo', 'lastName') }}</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label>Email *</label>
+              <input type="email" formControlName="email" />
+              @if (getFieldError('personalInfo', 'email')) {
+                <span class="error">{{ getFieldError('personalInfo', 'email') }}</span>
+              }
+              @if (form.get('personalInfo.email')?.pending) {
+                <span class="pending">Checking email availability...</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label>Phone *</label>
+              <input type="tel" formControlName="phone" placeholder="+1 (555) 123-4567" />
+              @if (getFieldError('personalInfo', 'phone')) {
+                <span class="error">{{ getFieldError('personalInfo', 'phone') }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Step 2: Address -->
+      @if (currentStep() === 2) {
+        <div class="form-step">
+          <h2>{{ stepInfo().title }}</h2>
+          <p class="step-description">{{ stepInfo().description }}</p>
+
+          <div formGroupName="address" class="form-group">
+            <div class="form-field">
+              <label>Street Address *</label>
+              <input type="text" formControlName="street" />
+              @if (getFieldError('address', 'street')) {
+                <span class="error">{{ getFieldError('address', 'street') }}</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label>City *</label>
+              <input type="text" formControlName="city" />
+              @if (getFieldError('address', 'city')) {
+                <span class="error">{{ getFieldError('address', 'city') }}</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label>Zip Code *</label>
+              <input type="text" formControlName="zipCode" placeholder="12345 or 12345-6789" />
+              @if (getFieldError('address', 'zipCode')) {
+                <span class="error">{{ getFieldError('address', 'zipCode') }}</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label>Country *</label>
+              <select formControlName="country">
+                <option value="">Select a country</option>
+                <option value="us">United States</option>
+                <option value="mx">Mexico</option>
+                <option value="ca">Canada</option>
+                <option value="uk">United Kingdom</option>
+              </select>
+              @if (getFieldError('address', 'country')) {
+                <span class="error">{{ getFieldError('address', 'country') }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Step 3: Preferences -->
+      @if (currentStep() === 3) {
+        <div class="form-step">
+          <h2>{{ stepInfo().title }}</h2>
+          <p class="step-description">{{ stepInfo().description }}</p>
+
+          <div formGroupName="preferences" class="form-group">
+            <div class="form-field checkbox-field">
+              <label>
+                <input type="checkbox" formControlName="newsletter" />
+                Subscribe to newsletter
+              </label>
+            </div>
+
+            <div class="form-field checkbox-field">
+              <label>
+                <input type="checkbox" formControlName="notifications" />
+                Enable notifications
+              </label>
+            </div>
+
+            <div class="form-field">
+              <label>Language *</label>
+              <select formControlName="language">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+              </select>
+              @if (getFieldError('preferences', 'language')) {
+                <span class="error">{{ getFieldError('preferences', 'language') }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Navigation buttons -->
+      <div class="form-actions">
+        @if (currentStep() > 1) {
+          <button type="button" (click)="previousStep()" class="btn btn-secondary">
+            Previous
+          </button>
+        }
+        @if (currentStep() < totalSteps) {
+          <button 
+            type="button" 
+            (click)="nextStep()" 
+            class="btn btn-primary"
+            [disabled]="!isCurrentStepValid()"
+          >
+            Next
+          </button>
+        } @else {
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]="!form.valid"
+          >
+            Submit
+          </button>
+        }
+      </div>
+    </form>
+  } @else {
+    <!-- Success message -->
+    <div class="success-message">
+      <h2>✅ Form Submitted Successfully!</h2>
+      <div class="submitted-data">
+        <h3>Submitted Data:</h3>
+        <pre>{{ submittedData() | json }}</pre>
+      </div>
+      <button (click)="resetForm()" class="btn btn-primary">Submit Another Form</button>
+    </div>
+  }
+</div>
+
